@@ -1,1 +1,1 @@
-- getting TG chatid https://api.telegram.org/bot<KEY>/getUpdates
+- getting TG chadtid https://api.telegram.org/bot<KEY>/getUpdates
