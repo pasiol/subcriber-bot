@@ -26,10 +26,12 @@ RUN GIT_COMMIT=$(git rev-list -1 HEAD) && \
     go build -ldflags="-s -w -X 'main.Version=${GIT_COMMIT}' -X main.Build=${BUILD}" -mod vendor -o ${APP_BUILD_NAME} .
 RUN chmod +x ${APP_BUILD_NAME}
 
-FROM scratch AS prod
-
+FROM debian:bullseye-slim AS prod
+RUN apt update && \
+    apt install -y ca-certificates && \
+    update-ca-certificates
 ENV APP_BUILD_PATH="/var/app" \
-    APP_BUILD_NAME="backend"
+    APP_BUILD_NAME="app"
 
 WORKDIR ${APP_BUILD_PATH}
 

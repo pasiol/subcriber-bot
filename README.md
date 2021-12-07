@@ -1,0 +1,1 @@
+- getting TG chatid https://api.telegram.org/bot<KEY>/getUpdates
