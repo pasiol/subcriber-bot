@@ -5,4 +5,4 @@ resources:
 images:
 - name: IMAGE_PLACEHOLDER
   newName: pasiol/subscriber-bot
-  newTag: d8b8f892504da9c098d1ec97c98d4cc8bcda3891
+  newTag: 6be43e7359a33f5c866a09e5005fc2cdba8af279
