@@ -7,6 +7,7 @@ import (
 	"os"
 	"strconv"
 	"sync"
+	"time"
 )
 
 type App struct {
@@ -17,11 +18,16 @@ type App struct {
 
 func (a *App) Initialize() {
 	var err error
-	a.NC, err = nats.Connect(os.Getenv("NATS_URL"))
-	if err != nil {
-		log.Fatalf("connecting to nats server failed: %s", err)
+	for i := 1; i <= 10; i++ {
+		a.NC, err = nats.Connect(os.Getenv("NATS_URL"), nats.Timeout(10*time.Second))
+		if err != nil {
+			log.Printf("connecting to nats server failed: %s, sleeping some time", err)
+			time.Sleep(time.Duration(i*10) * time.Second)
+		} else {
+			log.Printf("subscriber started %v, %s, %s", a.NC.Opts, os.Getenv("NATS_CHANNEL"), os.Getenv("NATS_GROUP"))
+			break
+		}
 	}
-	log.Printf("subscriber started %v, %s, %s", a.NC.Opts, os.Getenv("NATS_CHANNEL"), os.Getenv("NATS_GROUP"))
 
 	a.TGBot, err = tgbotapi.NewBotAPI(os.Getenv("API_KEY"))
 	if err != nil {

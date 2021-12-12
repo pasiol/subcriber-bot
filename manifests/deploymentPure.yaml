@@ -10,10 +10,6 @@ spec:
       app: todo-project-broadcaster
   template:
     metadata:
-      annotations:
-        linkerd.io/inject: enabled
-        config.linkerd.io/opaque-ports: 4222,8222
-        config.linkerd.io/skip-inbound-ports: 4222,8222
       labels:
         app: todo-project-broadcaster
     spec:
